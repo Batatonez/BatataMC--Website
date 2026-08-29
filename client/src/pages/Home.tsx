@@ -1,16 +1,31 @@
-// Oficina Noturna: page composition intentionally alternates dense and breathing editorial sections.
-import { useEffect } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
-import { AboutSection, FinalCta, Footer, GallerySection, Hero, JoinSection, ServersSection, StatusPanel } from "@/components/SiteSections";
+import { AboutSection } from "@/components/sections/AboutSection";
+import { FinalCta } from "@/components/sections/FinalCta";
+import { GallerySection } from "@/components/sections/GallerySection";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { JoinSection } from "@/components/sections/JoinSection";
+import { ServersSection } from "@/components/sections/ServersSection";
+import { SiteFooter } from "@/components/sections/SiteFooter";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 export default function Home() {
-  useEffect(() => {
-    const revealItems = document.querySelectorAll<HTMLElement>(".reveal, .server-card, .gallery-tile");
-    if (!("IntersectionObserver" in window)) { revealItems.forEach((item) => item.classList.add("is-visible")); return; }
-    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("is-visible"); observer.unobserve(entry.target); } }), { threshold: 0.12 });
-    revealItems.forEach((item) => observer.observe(item));
-    return () => observer.disconnect();
-  }, []);
+  useScrollReveal();
 
-  return <div className="site-shell"><SiteHeader /><main><Hero /><StatusPanel /><ServersSection /><AboutSection /><GallerySection /><JoinSection /><FinalCta /></main><Footer /></div>;
+  return (
+    <>
+      <a className="skip-link" href="#servidores">
+        Pular para o conteúdo
+      </a>
+      <SiteHeader />
+      <main>
+        <HeroSection />
+        <ServersSection />
+        <AboutSection />
+        <GallerySection />
+        <JoinSection />
+        <FinalCta />
+      </main>
+      <SiteFooter />
+    </>
+  );
 }
