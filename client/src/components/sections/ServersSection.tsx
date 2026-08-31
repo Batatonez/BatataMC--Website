@@ -40,7 +40,6 @@ function ServerCard({ server, index }: { server: GameServer; index: number }) {
         ) : (
           <div className="server-media-placeholder" aria-hidden="true">
             <span className="server-media-grid" />
-            <span className="server-media-note">imagem em breve</span>
           </div>
         )}
 

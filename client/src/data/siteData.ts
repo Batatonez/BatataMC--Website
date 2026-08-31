@@ -145,35 +145,66 @@ export const gameServers: GameServer[] = [
 
 export type GalleryItem = {
   id: string;
+  /** Modo ou área a que a captura pertence. */
   label: string;
-  detail: string;
-  /**
-   * Espaço no grid: "wide" ocupa meia largura, "feature" ocupa a largura toda
-   * como banner. Ambos preservam a proporção da captura sem corte agressivo.
-   */
-  size: "feature" | "wide";
-  /** Captura real. `null` mantém o espaço reservado. */
-  image: string | null;
+  /** Descrição da imagem para leitores de tela. */
+  alt: string;
+  src: string;
 };
 
 /**
- * Mosaico institucional. Novas capturas entram só acrescentando itens —
- * o grid se reorganiza sozinho.
+ * Capturas da rede, agrupadas por modo na ordem de exibição.
+ * O grid é de duas colunas, então cada par ocupa uma linha inteira.
+ * Para acrescentar capturas depois, basta adicionar itens aqui.
  */
 export const galleryItems: GalleryItem[] = [
   {
-    id: "lobby-praca",
+    id: "lobby-01",
     label: "Lobby",
-    detail: "A praça central do spawn, cercada pelo castelo.",
-    size: "wide",
-    image: "/images/lobby-01.jpg",
+    alt: "Vista aérea da praça central do lobby, com o castelo e as bandeiras ao fundo.",
+    src: "/images/lobby-01.jpg",
   },
   {
-    id: "lobby-castelo",
-    label: "Castelo",
-    detail: "As torres e bandeiras que fecham o lobby.",
-    size: "wide",
-    image: "/images/lobby-02.jpg",
+    id: "lobby-02",
+    label: "Lobby",
+    alt: "Outro ângulo do lobby, mostrando as torres do castelo e os telhados ao redor.",
+    src: "/images/lobby-02.jpg",
+  },
+  {
+    id: "pvp-01",
+    label: "BatataPvP",
+    alt: "Ilha flutuante do BatataPvP com a construção principal e a torre de antena.",
+    src: "/images/batatapvp-01.jpg",
+  },
+  {
+    id: "pvp-02",
+    label: "BatataPvP",
+    alt: "Ilha do BatataPvP vista de outro ângulo, com a área verde e as passarelas.",
+    src: "/images/batatapvp-02.jpg",
+  },
+  {
+    id: "rp-01",
+    label: "BatataRP",
+    alt: "Construções do BatataRP, com um pagode à esquerda e uma grande escultura de asas à direita.",
+    src: "/images/batatarp-01.jpg",
+  },
+  {
+    id: "rp-02",
+    label: "BatataRP",
+    alt: "Salão interno do BatataRP, com tapete vermelho, armaduras expostas e estantes de livros.",
+    src: "/images/batatarp-02.jpg",
+  },
+  {
+    id: "smp-01",
+    label: "BatataSMP",
+    alt: "Paisagem do BatataSMP com bioma de cerejeiras, construções ao longe e o mar à esquerda.",
+    src: "/images/batatasmp-01.jpg",
+  },
+  {
+    id: "smp-02",
+    label: "BatataSMP",
+    alt: "Colinas de cerejeira do BatataSMP vistas do nível do chão.",
+    src: "/images/batatasmp-02.jpg",
   },
 ];
 

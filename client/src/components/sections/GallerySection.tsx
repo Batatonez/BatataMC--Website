@@ -1,12 +1,15 @@
 /**
- * Mosaico institucional. Cada peça mostra a captura real quando ela existe e
- * mantém o espaço reservado quando o arquivo ainda não está disponível.
+ * Galeria da rede: duas colunas no desktop, uma no mobile, de modo que cada
+ * par de capturas de um mesmo modo ocupe uma linha inteira.
  */
 import { galleryItems } from "@/data/siteData";
 import { useImageFallback } from "@/hooks/useImageFallback";
 
 export function GallerySection() {
   const { failed, markFailed } = useImageFallback();
+  const items = galleryItems.filter(item => !failed.has(item.src));
+
+  if (items.length === 0) return null;
 
   return (
     <section id="galeria" className="section gallery">
@@ -25,35 +28,23 @@ export function GallerySection() {
         </div>
 
         <div className="gallery-grid">
-          {galleryItems.map((item, index) => {
-            const image =
-              item.image && !failed.has(item.image) ? item.image : null;
-
-            return (
-              <figure
-                key={item.id}
-                className={`gallery-tile gallery-tile--${item.size}`}
-                data-reveal="out"
-                style={{ transitionDelay: `${index * 60}ms` }}
-              >
-                {image ? (
-                  <img
-                    src={image}
-                    alt={item.detail}
-                    loading="lazy"
-                    decoding="async"
-                    onError={() => markFailed(image)}
-                  />
-                ) : (
-                  <span className="gallery-pattern" aria-hidden="true" />
-                )}
-                <figcaption>
-                  <strong>{item.label}</strong>
-                  <span>{item.detail}</span>
-                </figcaption>
-              </figure>
-            );
-          })}
+          {items.map((item, index) => (
+            <figure
+              key={item.id}
+              className="gallery-tile"
+              data-reveal="out"
+              style={{ transitionDelay: `${(index % 2) * 60}ms` }}
+            >
+              <img
+                src={item.src}
+                alt={item.alt}
+                loading="lazy"
+                decoding="async"
+                onError={() => markFailed(item.src)}
+              />
+              <figcaption>{item.label}</figcaption>
+            </figure>
+          ))}
         </div>
       </div>
     </section>

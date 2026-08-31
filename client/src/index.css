@@ -996,16 +996,6 @@ a {
   background-size: 24px 24px;
 }
 
-.server-media-note {
-  position: absolute;
-  right: 14px;
-  bottom: 12px;
-  color: var(--text-dim);
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
 .server-badge {
   position: absolute;
   z-index: 2;
@@ -1188,58 +1178,18 @@ a {
   object-fit: cover;
 }
 
-.gallery-tile--feature {
-  grid-column: span 2;
-  aspect-ratio: 21 / 9;
-}
-
-.gallery-pattern {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(183, 243, 74, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(183, 243, 74, 0.1) 1px, transparent 1px),
-    radial-gradient(
-      120% 90% at 70% 20%,
-      rgba(224, 164, 74, 0.14),
-      transparent 62%
-    );
-  background-size:
-    26px 26px,
-    26px 26px,
-    100% 100%;
-  -webkit-mask-image: radial-gradient(
-    140% 120% at 30% 100%,
-    #000,
-    transparent 92%
-  );
-  mask-image: radial-gradient(140% 120% at 30% 100%, #000, transparent 92%);
-}
-
 .gallery-tile figcaption {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
   padding: 46px 18px 16px;
   background: linear-gradient(0deg, rgba(8, 11, 9, 0.88), transparent);
-}
-
-.gallery-tile figcaption strong {
   font-family: var(--font-display);
-  font-size: clamp(17px, 2.4vw, 24px);
-  overflow-wrap: anywhere;
+  font-size: clamp(18px, 2.4vw, 25px);
   font-weight: 700;
   letter-spacing: -0.01em;
   text-transform: uppercase;
-}
-
-.gallery-tile figcaption span {
-  color: var(--text-muted);
-  font-size: 11px;
 }
 
 /* ------------------------------------------------------------ Como entrar -- */
@@ -1535,11 +1485,6 @@ a {
 
   .gallery-grid {
     grid-template-columns: 1fr;
-  }
-
-  .gallery-tile--feature {
-    grid-column: span 1;
-    aspect-ratio: 16 / 9;
   }
 }
 
