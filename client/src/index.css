@@ -704,7 +704,8 @@ a {
 
 .status-metrics {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* A contagem de jogadores é a frase mais longa; a plataforma cabe no resto. */
+  grid-template-columns: 1.25fr 0.75fr;
   gap: 12px;
   margin: 18px 0;
   padding: 14px 0;
@@ -722,7 +723,8 @@ a {
 .status-metrics dd {
   margin-top: 4px;
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: 19px;
+  line-height: 1.2;
   font-weight: 700;
   letter-spacing: -0.01em;
 }

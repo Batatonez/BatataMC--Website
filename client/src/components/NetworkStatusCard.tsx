@@ -4,7 +4,11 @@
  * aparece como traço, nunca como número inventado.
  */
 import { RefreshCw } from "lucide-react";
-import { describeStatus, StatusDot } from "@/components/ServerStatus";
+import {
+  describeStatus,
+  formatPlayers,
+  StatusDot,
+} from "@/components/ServerStatus";
 import {
   gameServers,
   networkStatusHost,
@@ -26,7 +30,9 @@ function ServerStatusRow({ server }: { server: GameServer }) {
       <StatusDot tone={info.tone} />
       <span className="status-row-name">{server.name}</span>
       <span className="status-row-value">
-        {info.players ? `${info.players} online` : info.label}
+        {info.playersOnline !== null
+          ? formatPlayers(info.playersOnline)
+          : info.label}
       </span>
     </li>
   );
@@ -66,7 +72,11 @@ export function NetworkStatusCard() {
       <dl className="status-metrics">
         <div>
           <dt>Jogadores</dt>
-          <dd>{info.players ?? "—"}</dd>
+          <dd>
+            {info.playersOnline !== null
+              ? formatPlayers(info.playersOnline)
+              : "—"}
+          </dd>
         </div>
         <div>
           <dt>Plataforma</dt>

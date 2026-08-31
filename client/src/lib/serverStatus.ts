@@ -111,6 +111,9 @@ export async function fetchServerStatus(
     const response = await fetch(buildStatusUrl(host), {
       signal: request.signal,
       headers: { Accept: "application/json" },
+      // Sem isto o navegador pode reservir a mesma resposta em cache a cada
+      // atualização, congelando a contagem no primeiro valor recebido.
+      cache: "no-store",
     });
 
     if (!response.ok) {

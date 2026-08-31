@@ -4,7 +4,11 @@
  */
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { describeStatus, StatusDot } from "@/components/ServerStatus";
+import {
+  describeStatus,
+  formatPlayers,
+  StatusDot,
+} from "@/components/ServerStatus";
 import { gameServers, type GameServer } from "@/data/siteData";
 import { useImageFallback } from "@/hooks/useImageFallback";
 import { useServerStatus } from "@/hooks/useServerStatus";
@@ -76,8 +80,10 @@ function ServerCard({ server, index }: { server: GameServer; index: number }) {
         <p className="server-status">
           <StatusDot tone={info.tone} />
           <span className="server-status-label">{info.label}</span>
-          {info.players && (
-            <span className="server-status-players">{info.players} online</span>
+          {info.playersOnline !== null && (
+            <span className="server-status-players">
+              {formatPlayers(info.playersOnline)}
+            </span>
           )}
         </p>
 

@@ -7,8 +7,14 @@ export type StatusDescription = {
   tone: StatusTone;
   label: string;
   detail: string;
-  players: string | null;
+  /** Jogadores online informados pela API; `null` quando ela não informa. */
+  playersOnline: number | null;
 };
+
+/** "1 jogador online" / "3 jogadores online". */
+export function formatPlayers(count: number): string {
+  return `${count} ${count === 1 ? "jogador" : "jogadores"} online`;
+}
 
 export function describeStatus(view: ServerStatusView): StatusDescription {
   if (view.state === "unconfigured") {
@@ -16,7 +22,7 @@ export function describeStatus(view: ServerStatusView): StatusDescription {
       tone: "idle",
       label: "Em definição",
       detail: "Endereço ainda não publicado.",
-      players: null,
+      playersOnline: null,
     };
   }
 
@@ -25,7 +31,7 @@ export function describeStatus(view: ServerStatusView): StatusDescription {
       tone: "checking",
       label: "Verificando",
       detail: "Consultando o servidor…",
-      players: null,
+      playersOnline: null,
     };
   }
 
@@ -34,7 +40,7 @@ export function describeStatus(view: ServerStatusView): StatusDescription {
       tone: "idle",
       label: "Indisponível",
       detail: "Não foi possível consultar agora.",
-      players: null,
+      playersOnline: null,
     };
   }
 
@@ -45,7 +51,7 @@ export function describeStatus(view: ServerStatusView): StatusDescription {
       tone: "offline",
       label: "Offline",
       detail: view.error ? "Última consulta falhou." : "Servidor fora do ar.",
-      players: null,
+      playersOnline: null,
     };
   }
 
@@ -53,9 +59,8 @@ export function describeStatus(view: ServerStatusView): StatusDescription {
     tone: "online",
     label: "Online",
     detail: version ? `Versão ${version}` : "Servidor no ar.",
-    players: players
-      ? `${players.online}${players.max !== null ? ` / ${players.max}` : ""}`
-      : null,
+    // `max` é ignorado na interface: só a contagem real é exibida.
+    playersOnline: players ? players.online : null,
   };
 }
 
