@@ -54,8 +54,8 @@ export type NetworkConfig = {
 export const network: NetworkConfig = {
   name: "BatataMC",
   platform: "Minecraft: Java Edition",
-  address: "179.213.113.129:2208",
-  statusHost: "179.213.113.129:2208",
+  address: "179.213.113.129",
+  statusHost: "179.213.113.129",
   statusRefreshMs: 60_000,
 };
 
