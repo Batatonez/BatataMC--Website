@@ -8,6 +8,14 @@
 
 export type ServerAccent = "lime" | "gold" | "violet" | "ember" | "azure";
 
+/** Uma captura de tela do servidor. */
+export type Screenshot = {
+  /** Caminho dentro de `client/public/`. */
+  src: string;
+  /** Descrição do que aparece na imagem, usada como `alt`. */
+  alt: string;
+};
+
 export type GameServer = {
   /** Identificador estável, usado como key e âncora. */
   id: string;
@@ -25,11 +33,11 @@ export type GameServer = {
    */
   host: string | null;
   /**
-   * Screenshot ou arte do modo. `null` renderiza o placeholder desenhado em CSS.
-   * Para trocar depois, basta colocar o arquivo em `client/public/images/`
-   * e apontar o caminho aqui.
+   * Capturas do modo, na ordem de exibição: a primeira é a principal do card
+   * e as seguintes entram na navegação por pontinhos. Lista vazia mantém o
+   * placeholder desenhado em CSS; um arquivo ausente também cai nele.
    */
-  image: string | null;
+  images: Screenshot[];
 };
 
 export type NetworkConfig = {
@@ -55,10 +63,10 @@ export const network: NetworkConfig = {
 export const networkStatusHost = network.statusHost ?? network.address;
 
 /**
- * Imagem de fundo do hero. `null` mantém apenas o cenário gerado em canvas/CSS.
- * Aceita qualquer arquivo em `client/public/images/`.
+ * Imagem de fundo do hero, aplicada como camada atmosférica atrás do cenário
+ * de blocos. `null` mantém apenas o cenário gerado em canvas/CSS.
  */
-export const heroImage: string | null = null;
+export const heroImage: string | null = "/images/lobby-01.jpg";
 
 export const navigationItems = [
   { label: "Início", href: "#inicio" },
@@ -83,7 +91,16 @@ export const gameServers: GameServer[] = [
       "O survival principal do BatataMC. Explore, construa e progrida junto com os outros jogadores.",
     accent: "lime",
     host: null,
-    image: null,
+    images: [
+      {
+        src: "/images/batatasmp-01.jpg",
+        alt: "Paisagem do BatataSMP com bioma de cerejeiras, construções ao longe e o mar à esquerda.",
+      },
+      {
+        src: "/images/batatasmp-02.jpg",
+        alt: "Colinas de cerejeira do BatataSMP vistas do nível do chão.",
+      },
+    ],
   },
   {
     id: "pvp",
@@ -93,7 +110,16 @@ export const gameServers: GameServer[] = [
     description: "Entre na arena e enfrente outros jogadores em combates PvP.",
     accent: "ember",
     host: null,
-    image: null,
+    images: [
+      {
+        src: "/images/batatapvp-01.jpg",
+        alt: "Ilha flutuante do BatataPvP com a construção principal e a torre de antena.",
+      },
+      {
+        src: "/images/batatapvp-02.jpg",
+        alt: "Outro ângulo da ilha do BatataPvP, mostrando a área verde e as passarelas.",
+      },
+    ],
   },
   {
     id: "rp",
@@ -104,7 +130,16 @@ export const gameServers: GameServer[] = [
       "Um espaço para construir livremente, experimentar ideias e criar projetos sem as limitações do survival.",
     accent: "violet",
     host: null,
-    image: null,
+    images: [
+      {
+        src: "/images/batatarp-01.jpg",
+        alt: "Pagode e construções do BatataRP, com uma grande escultura de asas ao fundo.",
+      },
+      {
+        src: "/images/batatarp-02.jpg",
+        alt: "Salão interno do BatataRP, com tapete vermelho, armaduras expostas e estantes de livros.",
+      },
+    ],
   },
 ];
 
@@ -112,40 +147,33 @@ export type GalleryItem = {
   id: string;
   label: string;
   detail: string;
-  /** Tamanho no mosaico. */
-  size: "feature" | "tall" | "wide" | "square";
-  /** Screenshot real. `null` mantém o espaço reservado. */
+  /**
+   * Espaço no grid: "wide" ocupa meia largura, "feature" ocupa a largura toda
+   * como banner. Ambos preservam a proporção da captura sem corte agressivo.
+   */
+  size: "feature" | "wide";
+  /** Captura real. `null` mantém o espaço reservado. */
   image: string | null;
 };
 
+/**
+ * Mosaico institucional. Novas capturas entram só acrescentando itens —
+ * o grid se reorganiza sozinho.
+ */
 export const galleryItems: GalleryItem[] = [
   {
-    id: "lobby",
+    id: "lobby-praca",
     label: "Lobby",
-    detail: "A entrada da rede ganha forma aqui.",
-    size: "feature",
-    image: null,
-  },
-  {
-    id: "construcoes",
-    label: "Construções",
-    detail: "Projetos feitos entre amigos.",
-    size: "tall",
-    image: null,
-  },
-  {
-    id: "exploracao",
-    label: "Exploração",
-    detail: "Bases novas e caminhos ainda sem nome.",
+    detail: "A praça central do spawn, cercada pelo castelo.",
     size: "wide",
-    image: null,
+    image: "/images/lobby-01.jpg",
   },
   {
-    id: "arena",
-    label: "Arena",
-    detail: "Timing, reflexo e rivalidade saudável.",
-    size: "square",
-    image: null,
+    id: "lobby-castelo",
+    label: "Castelo",
+    detail: "As torres e bandeiras que fecham o lobby.",
+    size: "wide",
+    image: "/images/lobby-02.jpg",
   },
 ];
 

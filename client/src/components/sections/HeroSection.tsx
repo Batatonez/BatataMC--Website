@@ -7,11 +7,14 @@ import { heroImage, network } from "@/data/siteData";
 export function HeroSection() {
   return (
     <section id="inicio" className="hero">
-      <div className="hero-scene" aria-hidden="true">
+      <div
+        className={`hero-scene${heroImage ? " hero-scene--photo" : ""}`}
+        aria-hidden="true"
+      >
         {heroImage && (
           <div
             className="hero-photo"
-            style={{ backgroundImage: `url(${heroImage})` }}
+            style={{ backgroundImage: `url("${heroImage}")` }}
           />
         )}
         <div className="hero-glow hero-glow--lime" />
