@@ -26,7 +26,10 @@ const STATUS_API_BASE = "https://api.mcsrvstat.us/3/";
 const REQUEST_TIMEOUT_MS = 8_000;
 
 export function buildStatusUrl(host: string): string {
-  return STATUS_API_BASE + encodeURIComponent(host.trim());
+  // O host pode vir como "ip:porta"; os dois-pontos são válidos no caminho da
+  // URL e a API os espera literais, então não podem ir percent-encoded.
+  const encoded = encodeURIComponent(host.trim()).replace(/%3A/gi, ":");
+  return STATUS_API_BASE + encoded;
 }
 
 function toCount(value: unknown): number | null {

@@ -27,9 +27,9 @@ export type GameServer = {
   description: string;
   accent: ServerAccent;
   /**
-   * Host consultado no status em tempo real (ex.: "smp.batatamc.com").
-   * `null` enquanto o endereço definitivo não existir — o card mostra
-   * "endereço em definição" em vez de qualquer valor inventado.
+   * Host consultado no status em tempo real, no formato "ip:porta" quando a
+   * porta não for a padrão. `null` mantém o card em "endereço em definição"
+   * em vez de exibir qualquer valor inventado.
    */
   host: string | null;
   /**
@@ -54,8 +54,8 @@ export type NetworkConfig = {
 export const network: NetworkConfig = {
   name: "BatataMC",
   platform: "Minecraft: Java Edition",
-  address: null,
-  statusHost: null,
+  address: "179.213.113.129:2208",
+  statusHost: "179.213.113.129:2208",
   statusRefreshMs: 60_000,
 };
 
@@ -90,7 +90,7 @@ export const gameServers: GameServer[] = [
     description:
       "O survival principal do BatataMC. Explore, construa e progrida junto com os outros jogadores.",
     accent: "lime",
-    host: null,
+    host: "179.213.113.129:25575",
     images: [
       {
         src: "/images/batatasmp-01.jpg",
@@ -109,7 +109,7 @@ export const gameServers: GameServer[] = [
     kind: "PvP",
     description: "Entre na arena e enfrente outros jogadores em combates PvP.",
     accent: "ember",
-    host: null,
+    host: "179.213.113.129:25567",
     images: [
       {
         src: "/images/batatapvp-01.jpg",
@@ -129,7 +129,7 @@ export const gameServers: GameServer[] = [
     description:
       "Um espaço para construir livremente, experimentar ideias e criar projetos sem as limitações do survival.",
     accent: "violet",
-    host: null,
+    host: "179.213.113.129:6767",
     images: [
       {
         src: "/images/batatarp-01.jpg",
